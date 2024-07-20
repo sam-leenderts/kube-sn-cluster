@@ -1,0 +1,19 @@
+- hosts: all
+  become: yes
+  tasks:
+    - name: create the 'ubuntu' user
+      user: name=ubuntu append=yes state=present createhome=yes shell=/bin/bash
+
+    - name: allow 'ubuntu' to have passwordless sudo
+      lineinfile:
+        dest: /etc/sudoers
+        line: 'ubuntu ALL=(ALL) NOPASSWD: ALL'
+        validate: 'visudo -cf %s'
+
+    - name: Set authorized key taken from file
+      ansible.posix.authorized_key:
+        user: charlie
+        state: present
+        key: "{{ lookup('file', '/home/charlie/.ssh/id_rsa.pub') }}"
+        
+     
