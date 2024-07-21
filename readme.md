@@ -28,3 +28,5 @@ kube_version=1.29.7-00
 # References 
 [How To Create a Kubernetes Cluster Using Kubeadm on Ubuntu 20.04](https://www.digitalocean.com/community/tutorials/how-to-create-a-kubernetes-cluster-using-kubeadm-on-ubuntu-20-04
 )
+
+[bug - Updating from such a repository can't be done securely, and is therefore disabled by default](https://stackoverflow.com/questions/70318835/ansible-throwing-a-failed-to-update-apt-cache-wupdating-from-such-a-repositor)
