@@ -2,6 +2,8 @@
 - hosts: all
   become: yes
   tasks:
+  # This playbook uses docker for the container runtime, Other options are available. See below. 
+  # https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#installing-runtime
    - name: create Docker config directory
      file: path=/etc/docker state=directory
 
@@ -37,35 +39,31 @@
    - name: install gpg
      apt:
        name: gpg
-       state: present
+       state: present 
+  
+   - name: Install k8s public signing key
+     ansible.builtin.shell: curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.30/deb/Release.key | gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+     args:
+      executable: /bin/bash
+      creates: /etc/apt/keyrings/kubernetes-apt-keyring.gpg
 
-   - name: add Kubernetes apt-key
-     apt_key:
-       url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
-       state: present
-
-   - name: add Kubernetes' APT repository
-     apt_repository:
-      repo: deb http://apt.kubernetes.io/ kubernetes-xenial main
-      state: present
-      filename: 'kubernetes'
+   - name: Update apt sources
+     ansible.builtin.shell: echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.30/deb/ /' | tee /etc/apt/sources.list.d/kubernetes.list
+     args:
+      executable: /bin/bash
 
    - name: install kubelet
      apt:
-       name: kubelet=1{{kube_version}}
+       name: kubelet
        state: present
        update_cache: true
 
    - name: install kubeadm
      apt:
-       name: kubeadm={{kube_version}}
+       name: kubeadm
        state: present
 
-- hosts: master_node
-  become: yes
-  tasks:
    - name: install kubectl
      apt:
-       name: kubectl={{kube_version}}
+       name: kubectl
        state: present
-       force: yes
