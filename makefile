@@ -1,15 +1,4 @@
 init:
-	make setup | tee logs/init.log
-
-kconf:
-	@echo "export KUBECONFIG='~/.kube/Terryon-Lock-kubeconfig.yaml'"
-
-build-SN:
-	ansible-playbook -i ansible/hosts ansible/initial.yml | tee logs/build.log
-	ansible-playbook -i ansible/hosts ansible/kube-dependencies.yml | tee -a logs/build.log
-	ansible-playbook -i ansible/hosts ansible/kube-init.yml | tee -a logs/build.log
-
-set-up: 
 	@echo "Installing Ansible Modules"
 	@echo "-----------------------------"
 	ansible-galaxy collection install ansible.posix
@@ -26,6 +15,17 @@ set-up:
              ssh-keygen -b 2048 -t rsa -f ~/.ssh/cluster -q -N "" | bash; \
         fi
 	@echo "-----------------------------"
+
+kconf:
+	@echo "export KUBECONFIG='~/.kube/Terryon-Lock-kubeconfig.yaml'"
+
+build-SN:
+	ansible-playbook -i ansible/hosts ansible/initial.yml | tee logs/build.log
+	ansible-playbook -i ansible/hosts ansible/kube-dependencies.yml | tee -a logs/build.log
+	ansible-playbook -i ansible/hosts ansible/kube-init.yml | tee -a logs/build.log
+
+set-up: 
+	
 
 clean-up:
 	@echo "Cleaning up..."
