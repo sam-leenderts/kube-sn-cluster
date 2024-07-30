@@ -5,7 +5,7 @@ init:
 	@echo "-----------------------------"
 	@echo "Checking for logs/"
 	@if ! [ -d ./logs/ ]; then \
-			echo "Making logs/"; \
+			echo "Folder not found, making logs/"; \
             mkdir logs; \
         fi
 	@echo "-----------------------------"
