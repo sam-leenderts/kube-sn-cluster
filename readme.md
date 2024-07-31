@@ -1,4 +1,5 @@
 # Kubernetes single node cluster
+This guide has been tested using docker as the container runtime and Kubernetes V1.30
 
 ## Prerequisites
 - A machine running Ubuntu 24.04 LTS with a minimum 2 GiB of RAM and 2 CPUs
@@ -13,7 +14,7 @@ make init
 
 # Instructions
 
-The cluster can be build be following each step below or by using the `make build` command. This will build a Kubernetes 1.30 Cluster.
+The cluster can be build by following each step below or by using the `make build` command. This command use the default settings and will build a Kubernetes 1.30 single node Cluster.
 
 ## Creating a Non-Root User
 
@@ -50,7 +51,7 @@ Run the `kube-init.yml` playbook
 ansible-playbook -i ansible/hosts ansible/kube-init.yml
 ```
 
-# Connecting Kube API
+# Connecting to the Kube API
 
 ```bash 
 ssh ubuntu@Master_Node_IP
