@@ -28,6 +28,14 @@
         remote_src: yes
         owner: ubuntu
 
+    - name: Untaint node
+      become: yes
+      become_user: ubuntu
+      shell: kubectl taint nodes --all node-role.kubernetes.io/control-plane- >> taint.txt
+      args:
+        chdir: $HOME
+        creates: taint.txt
+
     - name: install Pod network
       become: yes
       become_user: ubuntu
