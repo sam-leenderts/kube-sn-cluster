@@ -1,9 +1,15 @@
 ---
-- hosts: all
+- hosts: master_node
   become: yes
   tasks:
   # This playbook uses docker for the container runtime, Other options are available. See below. 
   # https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#installing-runtime
+   - name: install Docker
+     apt:
+       name: docker.io
+       state: present
+       update_cache: true
+
    - name: create Docker config directory
      file: path=/etc/docker state=directory
 
@@ -15,11 +21,6 @@
         "exec-opts": ["native.cgroupdriver=systemd"]
         }
 
-   - name: install Docker
-     apt:
-       name: docker.io
-       state: present
-       update_cache: true
 
    - name: install APT Transport HTTPS
      apt:
