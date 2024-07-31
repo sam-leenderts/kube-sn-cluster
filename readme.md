@@ -5,7 +5,7 @@ This guide has been tested using docker as the container runtime and Kubernetes 
 - A machine running Ubuntu 24.04 LTS with a minimum 2 GiB of RAM and 2 CPUs
     - A ssh key installed on the target machine
 - [Ansible Installed on your local machine](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html#installing-the-control-machine)
-- Clone this repo.
+- Clone this repo to your local machine
 
 ## Set-up
 ```bash
