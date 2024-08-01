@@ -2,8 +2,12 @@
 - hosts: master_node
   become: yes
   tasks:
-  # This playbook uses docker for the container runtime, Other options are available. See below. 
+
+  # This playbook uses containerd for the container runtime. 
   # https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#installing-runtime
+
+  # containerd runtime package is distrubuted by docker and is bundle with docker.io
+  #  https://github.com/containerd/containerd/blob/main/docs/getting-started.md#option-2-from-apt-get-or-dnf
    - name: install Docker
      apt:
        name: docker.io
@@ -12,15 +16,6 @@
 
    - name: create Docker config directory
      file: path=/etc/docker state=directory
-
-   - name: changing Docker to systemd driver
-     copy:
-      dest: "/etc/docker/daemon.json"
-      content: |
-        {
-        "exec-opts": ["native.cgroupdriver=systemd"]
-        }
-
 
    - name: install APT Transport HTTPS
      apt:
