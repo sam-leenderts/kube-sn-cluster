@@ -1,0 +1,31 @@
+- hosts: master_node
+  become: yes
+  tasks:
+    - name: Install Helm
+      become: yes
+      become_user: ubuntu
+      shell: curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash >> helm_install.txt
+      args:
+        chdir: $HOME
+        creates: helm_install.txt
+        
+    - name: Add kubernetes-dashboard repo
+      kubernetes.core.helm_repository:
+        name: kubernetes-dashboard
+        repo_url: "https://kubernetes.github.io/dashboard/"
+
+    - name: Add openebs repo
+      kubernetes.core.helm_repository:
+        name: openebs
+        repo_url: "https://openebs.github.io/openebs/"
+
+    - name: Deploy the kubernetes-dashboard
+      become: yes
+      become_user: ubuntu
+      kubernetes.core.helm:
+        name: kubernetes-dashboard
+        chart_ref: kubernetes-dashboard/kubernetes-dashboard
+        release_namespace: kubernetes-dashboard
+        create_namespace: true
+
+        

@@ -2,6 +2,7 @@ init:
 	@echo "Installing Ansible Modules"
 	@echo "-----------------------------"
 	ansible-galaxy collection install ansible.posix
+	ansible-galaxy collection install kubernetes.core
 	@echo "-----------------------------"
 	@echo "Checking for logs/"
 	@if ! [ -d ./logs/ ]; then \
