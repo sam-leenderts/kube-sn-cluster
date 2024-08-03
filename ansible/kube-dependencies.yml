@@ -4,18 +4,17 @@
   tasks:
 
   # This playbook uses containerd for the container runtime. 
+  # https://phoenixnap.com/kb/docker-vs-containerd-vs-cri-o
   # https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#installing-runtime
 
-  # containerd runtime package is distrubuted by docker and is bundle with docker.io
+  # The containerd runtime package is distrubuted by docker and is bundle with docker.io
   #  https://github.com/containerd/containerd/blob/main/docs/getting-started.md#option-2-from-apt-get-or-dnf
+
    - name: install Docker
      apt:
        name: docker.io
        state: present
        update_cache: true
-
-   - name: create Docker config directory
-     file: path=/etc/docker state=directory
 
    - name: install APT Transport HTTPS
      apt:
@@ -63,3 +62,8 @@
      apt:
        name: kubectl
        state: present
+       
+   - name: Turn off swap
+      shell: sed -i -e '/swap/d' /etc/fstab >> swapoff.txt
+      args:
+        creates: swapoff.txt

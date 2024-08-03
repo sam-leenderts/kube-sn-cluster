@@ -2,10 +2,6 @@
 - hosts: master_node
   become: yes
   tasks:
-    - name: Turn off swap
-      shell: sed -i -e '/swap/d' /etc/fstab >> swapoff.txt
-      args:
-        creates: swapoff.txt
          
     - name: initialize the cluster
       shell: kubeadm init --pod-network-cidr=10.244.0.0/16 >> cluster_initialized.txt
