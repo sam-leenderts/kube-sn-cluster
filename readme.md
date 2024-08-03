@@ -67,3 +67,4 @@ kubectl get pods -A
 - [Create a k8 cluster with kubeadm](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#before-you-begin)
 - [Install-kubeadm](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)
 - [Bug - Updating from such a repository can't be done securely, and is therefore disabled by default](https://stackoverflow.com/questions/70318835/ansible-throwing-a-failed-to-update-apt-cache-wupdating-from-such-a-repositor)
+- [CSI Drivers](https://kubernetes-csi.github.io/docs/drivers.html)
