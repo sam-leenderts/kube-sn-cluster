@@ -1,5 +1,5 @@
 [master_node]
-singlenode ansible_host=<Master_Node_IP>ip ansible_user=root 
+singlenode ansible_host=<Master_Node_IP> ansible_user=root 
 
 [all:vars]
 ansible_python_interpreter=/usr/bin/python3
